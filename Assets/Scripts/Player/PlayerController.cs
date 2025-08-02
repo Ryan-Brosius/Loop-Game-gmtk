@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Profiling;
@@ -25,10 +26,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject ProjectilePrefab;
     [SerializeField] LayerMask groundLayer;
     public bool canAttack = true;
+    [SerializeField] GameObject heldSpear;
+
+    [Header("Animation")]
+    [SerializeField] Animator animController;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        animController = this.GetComponent<Animator>();
     }
 
     void OnMove(InputValue value)
@@ -52,7 +58,9 @@ public class PlayerController : MonoBehaviour
 
         HandleRecording();
 
-        isAttacking = false;  
+        isAttacking = false;
+
+        if (heldSpear) heldSpear.SetActive(canAttack);
     }
 
     private void HandleMove()
@@ -61,10 +69,16 @@ public class PlayerController : MonoBehaviour
 
         if (move.magnitude > 0)
         {
+            if (animController) animController.SetBool("Moving", true);
+
             Quaternion targetRotation = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             controller.Move(move * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            if (animController) animController.SetBool("Moving", false);
         }
     }
 
@@ -87,6 +101,8 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttacking && canAttack)
         {
+            if (animController) animController.SetTrigger("Attack");
+
             canAttack = false;
             GameObject spear = Instantiate(ProjectilePrefab, ShootPoint.transform.position, Quaternion.LookRotation(aimInput));
 

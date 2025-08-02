@@ -61,7 +61,7 @@ public class SpearController : MonoBehaviour
             return;
         }
 
-        if (other.CompareTag("Gladiator") && other.gameObject != parentObj)
+        if (other.CompareTag("Gladiator") && other.gameObject != parentObj && !canPickup)
         {
             other.gameObject.SetActive(false);
         }

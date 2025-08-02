@@ -66,9 +66,16 @@ public class InputRecorderManager : MonoBehaviour
                 actors[i].SetRecord(recordings[i]);
                 actors[i].gameObject.transform.position = recordings[i].startPosition;
                 actors[i].gameObject.SetActive(true);
+
                 if(actors[i].TryGetComponent<PlayerController>(out PlayerController controller))
                 {
                     controller.canAttack = true;
+                }
+
+                if (actors[i].TryGetComponent<PlayerIdentifier>(out PlayerIdentifier identifier))
+                {
+                    identifier.MakeBlue();
+                    identifier.IdentifierNumber(i+1);
                 }
             }
         }
