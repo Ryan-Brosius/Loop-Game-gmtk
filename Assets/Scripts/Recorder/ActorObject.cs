@@ -14,7 +14,7 @@ public class ActorObject : MonoBehaviour
     private PlayerController playerController;
     private float recordTime;
     private ActorStates state;
-    private int currentStep;
+    public int currentStep;
 
     private float buffer = 0.01f;
 
@@ -31,7 +31,7 @@ public class ActorObject : MonoBehaviour
         switch (state)
         {
             case ActorStates.Playing:
-                if (currentStep > record.data.Count)
+                if (currentStep >= record.data.Count)
                     break;
 
                 recordStep = record.data[currentStep];
@@ -39,6 +39,7 @@ public class ActorObject : MonoBehaviour
                 if (Mathf.Abs(recordTime - recordStep.time) >= buffer || recordTime > recordStep.time)
                 {
                     playerController.simulateMove(record.data[currentStep].moveInput);
+                    playerController.simulateAttack(record.data[currentStep].isAttacking);
                     currentStep++;
                 }
 

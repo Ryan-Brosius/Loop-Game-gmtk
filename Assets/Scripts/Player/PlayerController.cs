@@ -11,11 +11,17 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector2 lookInput;
+    private bool isAttacking;
 
     private Vector3 velocity;
 
-    InputRecord recorder = new InputRecord();
-    [SerializeField] private ActorObject test;
+    public InputRecord recorder = new InputRecord();
+    private bool isRecording = true;
+
+    [Header("Shootings stuff")]
+    [SerializeField] private GameObject ShootPoint;
+    [SerializeField] private GameObject ProjectilePrefab;
+    
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -26,65 +32,69 @@ public class PlayerController : MonoBehaviour
         moveInput = value.Get<Vector2>();
     }
 
-    /*void OnLook(InputValue value)
+    void OnAttack()
     {
-    }*/
+        isAttacking = true;
+    }
 
     private void FixedUpdate()
     {
         HandleMove();
-        HandleLook();
+        HandleAttack();
 
         HandleRecording();
 
-        if ((Input.GetKeyDown(KeyCode.K)) && test != null)
-        {
-            Debug.Log("Started??");
-            InputRecorderManager.Instance.AddRecording(recorder, test);
-            InputRecorderManager.Instance.PlayAllActors();
-
-        }
-
-        if ((Input.GetKeyDown(KeyCode.L)) && test != null)
-        {
-            InputRecorderManager.Instance.ReverseAllRecordings();
-        }
+        isAttacking = false;  
     }
 
     private void HandleMove()
     {
-        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y) * moveSpeed;
-        transform.position += move * Time.deltaTime;
-    }
+        Vector3 move = new Vector3(moveInput.x, 0, moveInput.y).normalized;
 
-    private void HandleLook()
-    {
-        if (Mouse.current == null)
-            return;
+        if (move.magnitude > 0)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-        Vector3 mouseScreenPos = Mouse.current.position.ReadValue();
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
-
-        Vector2 direction = (mouseWorldPos - transform.position);
-        if (direction.sqrMagnitude < 0.0001f)
-            return;
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, angle - 90f, 0);
+            transform.position += move * moveSpeed * Time.deltaTime;
+        }
     }
 
     private void HandleRecording()
     {
-        recorder.addToRecord(new InputRecordStruct
+        if (!isRecording)
+            return;
+
+        recorder.AddToRecord(new InputRecordStruct
         {
             time = Time.time,
             moveInput = moveInput,
             lookInput = lookInput,
+            isAttacking = isAttacking,
         });
+    }
+
+    void HandleAttack()
+    {
+        if (isAttacking)
+        {
+            Instantiate(ProjectilePrefab, gameObject.transform.position, Quaternion.identity);
+        }
+    }
+
+    public InputRecord KillMyselfStopRecording()
+    {
+        isRecording = false;
+        return recorder;
     }
 
     public void simulateMove(Vector2 value)
     {
         moveInput = value;
+    }
+
+    public void simulateAttack(bool value)
+    {
+        isAttacking = value;
     }
 }

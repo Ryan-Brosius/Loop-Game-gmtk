@@ -8,6 +8,12 @@ public class InputRecorderManager : MonoBehaviour
 
     public static InputRecorderManager Instance;
 
+    [SerializeField] private GameObject currentPlayer;
+    [SerializeField] private GameObject playerPrefab;
+
+    [Header("Enable debug settings here")]
+    [SerializeField] private bool DEBUG_MODE = false;
+
     private void Awake()
     {
         if (Instance == null)
@@ -18,6 +24,29 @@ public class InputRecorderManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+    }
+
+    private void Update()
+    {
+        if (!DEBUG_MODE)
+            return;
+
+
+        // KILL PLAYER
+        // SAVE THEIR RECORDING LOL!!
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            KillCurrentPlayer();
+        }
+
+
+        // RESTART THE TEST
+        // SPAWN ALL OF THE RECORDINGS
+        // SPAWN NEW PLAYER
+        if ((Input.GetKeyDown(KeyCode.R)))
+        {
+            SpawnNewPlayer();
         }
     }
 
@@ -35,6 +64,8 @@ public class InputRecorderManager : MonoBehaviour
             if (recordings.ContainsKey(i) && actors.ContainsKey(i))
             {
                 actors[i].SetRecord(recordings[i]);
+                actors[i].gameObject.transform.position = recordings[i].startPosition;
+                actors[i].gameObject.SetActive(true);
             }
         }
     }
@@ -45,5 +76,36 @@ public class InputRecorderManager : MonoBehaviour
         {
             actors.SetState(ActorStates.Playback);
         }
+    }
+
+    public void ResetAllRecordings()
+    {
+        for (int i = 0; i < recordings.Count; ++i)
+        {
+            var actor = actors[i];
+            var recording = recordings[i];
+
+            actor.gameObject.transform.position = recording.startPosition;
+            actor.currentStep = 0;
+        }
+    }
+
+    public void KillCurrentPlayer()
+    {
+        PlayerController controller = currentPlayer.GetComponent<PlayerController>();
+        var inputRecord = controller.KillMyselfStopRecording();
+        var actor = controller.gameObject.AddComponent<ActorObject>();
+        actor.SetRecord(inputRecord);
+        Destroy(controller.gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>());
+
+        AddRecording(inputRecord, actor);
+        controller.gameObject.SetActive(false);
+    }
+
+    public void SpawnNewPlayer()
+    {
+        GameObject player = Instantiate(playerPrefab, new Vector3(0,0,0), Quaternion.identity);
+        currentPlayer = player;
+        PlayAllActors();
     }
 }
