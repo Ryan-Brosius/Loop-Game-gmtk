@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de45e18f4c45ca14a8c4853aaab8a8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 5
   rotationSpeed: 20
   ShootPoint: {fileID: 2109979235481274552}
   ProjectilePrefab: {fileID: 1117910940530895394, guid: 6592d27d9d9c91f4b8e3c6a3efc95353, type: 3}
@@ -751,8 +751,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5ab0c9af9576952468f1565b0b94952e, type: 2}
+  m_sharedMaterial: {fileID: 6287575192941119696, guid: 5ab0c9af9576952468f1565b0b94952e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

@@ -4,6 +4,8 @@ public class SpearController : MonoBehaviour
 {
     [SerializeField] float flySpeed;
     [SerializeField] float pickupRadius = 1f;
+    [SerializeField] Transform spearMesh;
+    [SerializeField] GameObject pickUpSparkles;
     public bool canPickup = false;
     public GameObject parentObj;
     public LayerMask gladiatorLayer;
@@ -66,6 +68,8 @@ public class SpearController : MonoBehaviour
             other.gameObject.SetActive(false);
         }
 
+        if (spearMesh != null) spearMesh.localRotation = Quaternion.Euler(130, 0, 0);
+        if (pickUpSparkles != null) pickUpSparkles.SetActive(true);
         rb.linearVelocity = Vector3.zero;
         canPickup = true;
     }
