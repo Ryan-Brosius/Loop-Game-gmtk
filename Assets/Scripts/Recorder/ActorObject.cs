@@ -39,7 +39,7 @@ public class ActorObject : MonoBehaviour
                 if (Mathf.Abs(recordTime - recordStep.time) >= buffer || recordTime > recordStep.time)
                 {
                     playerController.simulateMove(record.data[currentStep].moveInput);
-                    playerController.simulateAttack(record.data[currentStep].isAttacking);
+                    playerController.simulateAttack(record.data[currentStep].isAttacking, record.data[currentStep].aimInput);
                     currentStep++;
                 }
 

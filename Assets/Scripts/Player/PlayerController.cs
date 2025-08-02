@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
+    
 
     private CharacterController controller;
     private Vector2 moveInput;
     private Vector2 lookInput;
+    private Vector3 aimInput;
     private bool isAttacking;
 
     private Vector3 velocity;
@@ -21,7 +23,9 @@ public class PlayerController : MonoBehaviour
     [Header("Shootings stuff")]
     [SerializeField] private GameObject ShootPoint;
     [SerializeField] private GameObject ProjectilePrefab;
-    
+    [SerializeField] LayerMask groundLayer;
+    public bool canAttack = true;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -34,7 +38,11 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack()
     {
-        isAttacking = true;
+        if (canAttack)
+        {
+            Aim();
+            isAttacking = true;
+        }
     }
 
     private void FixedUpdate()
@@ -70,15 +78,34 @@ public class PlayerController : MonoBehaviour
             time = Time.time,
             moveInput = moveInput,
             lookInput = lookInput,
+            aimInput = aimInput,
             isAttacking = isAttacking,
         });
     }
 
     void HandleAttack()
     {
-        if (isAttacking)
+        if (isAttacking && canAttack)
         {
-            Instantiate(ProjectilePrefab, gameObject.transform.position, Quaternion.identity);
+            canAttack = false;
+            GameObject spear = Instantiate(ProjectilePrefab, ShootPoint.transform.position, Quaternion.LookRotation(aimInput));
+
+            if (spear.TryGetComponent<SpearController>(out SpearController spearScript))
+            {
+                spearScript.SpawnSpear(this.gameObject);
+            }
+        }
+    }
+
+    void Aim()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
+        {
+            Vector3 target = hit.point;
+            target = new Vector3(target.x, ShootPoint.transform.position.y, target.z);
+            aimInput = (target - ShootPoint.transform.position).normalized;
         }
     }
 
@@ -93,8 +120,9 @@ public class PlayerController : MonoBehaviour
         moveInput = value;
     }
 
-    public void simulateAttack(bool value)
+    public void simulateAttack(bool value, Vector3 aimDirection)
     {
+        aimInput = aimDirection;
         isAttacking = value;
     }
 }

@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentPlayer: {fileID: 0}
-  playerPrefab: {fileID: 1699519281877358164, guid: a039156920e1c3c439c5574b91da265d, type: 3}
+  playerPrefab: {fileID: 1025175553230378191, guid: f42c9230e711aa74e923883ea954a941, type: 3}
   DEBUG_MODE: 1

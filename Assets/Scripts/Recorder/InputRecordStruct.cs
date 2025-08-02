@@ -6,6 +6,7 @@ public struct InputRecordStruct
     public float time;
     public Vector2 moveInput;
     public Vector2 lookInput;
+    public Vector3 aimInput;
     public bool isAttacking;
 }
 
