@@ -10,6 +10,8 @@ public class InputRecorderManager : MonoBehaviour
 
     [SerializeField] private GameObject currentPlayer;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] Transform[] spawnPoints;
+    private int lastSpawnIndex;
 
     [Header("Enable debug settings here")]
     [SerializeField] private bool DEBUG_MODE = false;
@@ -115,8 +117,27 @@ public class InputRecorderManager : MonoBehaviour
 
     public void SpawnNewPlayer()
     {
-        GameObject player = Instantiate(playerPrefab, new Vector3(0,0,0), Quaternion.identity);
+        GameObject player = Instantiate(playerPrefab, GetSpawnPoint(), Quaternion.identity);
         currentPlayer = player;
         PlayAllActors();
+    }
+
+    private Vector3 GetSpawnPoint()
+    {
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            return new Vector3(0, 0, 0);
+        }
+        else
+        {
+            int index;
+            do
+            {
+                index = Random.Range(0, spawnPoints.Length);
+            } while (index == lastSpawnIndex);
+
+            lastSpawnIndex = index;
+            return spawnPoints[index].position;
+        }
     }
 }

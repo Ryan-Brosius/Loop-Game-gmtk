@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private Vector3 velocity;
 
-    public InputRecord recorder = new InputRecord();
+    public InputRecord recorder;
     private bool isRecording = true;
 
     [Header("Shootings stuff")]
@@ -35,6 +35,11 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         animController = this.GetComponent<Animator>();
+    }
+
+    private void Awake()
+    {
+        recorder = new InputRecord(this.transform.position);
     }
 
     void OnMove(InputValue value)
