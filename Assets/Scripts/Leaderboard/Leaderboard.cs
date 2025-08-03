@@ -8,7 +8,7 @@ public class Leaderboard : MonoBehaviour
 {
     [SerializeField] private List<TextMeshProUGUI> scores;
 
-    private string key = "81b11985a88802c21f42f3743d31f74e30bd9691c70e2d82a476300f3d72cfa3";
+    private string key = "16e353d37c872b7b64e8dfde81ad5ccc809c4ce2aa71ccd2deb7831c7faeb106";
 
     public static Leaderboard Instance;
 
@@ -37,7 +37,8 @@ public class Leaderboard : MonoBehaviour
 
             for (int i = 0; i < count; i++)
             {
-                scores[i].text = $"{msg[i].Username} {msg[i].Score} {msg[i].Extra}";
+                // 1.) [username] [loop] [X]
+                scores[i].text = $"{i+1}.) {msg[i].Username}    {msg[i].Extra}    {msg[i].Score}";
             }
         }));
     }

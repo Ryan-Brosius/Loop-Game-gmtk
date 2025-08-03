@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> gladiatorsList;
     private int currentLoop;
     public string playerName;
+    private int losses = 5;
 
     [Header("Fame & Glory")]
     [SerializeField] bool decayActive = false;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI killerTitle;
     [SerializeField] GameObject gloryLoss;
     [SerializeField] GameObject deathLoss;
+    [SerializeField] GameObject leaderboard;
 
     private void Awake()
     {
@@ -138,6 +140,8 @@ public class GameManager : MonoBehaviour
 
     public void RoundLost(string numeral)
     {
+        losses++;
+
         decayActive = false;
         SoundManager.Instance.PlaySoundEffect("PlayerDeath");
         if (gladiatorsList.Count > 0)
@@ -147,11 +151,21 @@ public class GameManager : MonoBehaviour
                 actor.SetActive(false);
             }
         }
-        ShowLossPanel(numeral);
+
+        if (losses < 5)
+        {
+            ShowLossPanel(numeral);
+        }
+        else
+        {
+            ShowLeaderboardCanvas();
+        }
     }
 
     IEnumerator RoundLostRoutine()
     {
+        losses++;
+
         decayActive = false;
         SoundManager.Instance.PlaySoundEffect("PlayerDeath");
         if (gladiatorsList.Count > 0)
@@ -163,7 +177,15 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        ShowLossPanel();
+
+        if (losses < 5)
+        {
+            ShowLossPanel();
+        }
+        else
+        {
+            ShowLeaderboardCanvas();
+        }
     }
 
     public void ClearArena()
@@ -275,5 +297,16 @@ public class GameManager : MonoBehaviour
     {
         victoryPanel.SetActive(false);
         lossPanel.SetActive(false);
+    }
+
+    public void ShowLeaderboardCanvas()
+    {
+        // Assuming this doesnt break when this is opened the user should add their score??
+        // Could break but idk
+
+        Leaderboard.Instance.SetLeaderboardEntry(playerName, fameAmount, $"{currentLoop}");
+
+        HidePanels();
+        leaderboard.SetActive(true);
     }
 }
