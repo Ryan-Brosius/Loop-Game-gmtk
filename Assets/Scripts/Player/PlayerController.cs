@@ -42,6 +42,8 @@ public class PlayerController : MonoBehaviour
         recorder = new InputRecord(this.transform.position);
     }
 
+    public bool IsMainCharacter() => GetComponent<UnityEngine.InputSystem.PlayerInput>() != null;
+
     void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -114,6 +116,15 @@ public class PlayerController : MonoBehaviour
             if (spear.TryGetComponent<SpearController>(out SpearController spearScript))
             {
                 spearScript.SpawnSpear(this.gameObject);
+            }
+
+            if (IsMainCharacter())
+            {
+                SoundManager.Instance.PlaySoundEffect("OtherSpearThrow");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySoundEffect("PlayerSpearThrow");
             }
         }
     }

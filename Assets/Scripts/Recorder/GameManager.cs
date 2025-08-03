@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
         {
             gladiatorsList.Add(GameObject.FindGameObjectWithTag("First Objective"));
         }
+
+        SoundManager.Instance.PlaySoundEffect("MainTheme");
     }
 
     public void LevelReset()
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
         InputRecorderManager.Instance.KillCurrentPlayer();
         yield return new WaitForSeconds(1f);
         InputRecorderManager.Instance.SpawnNewPlayer();
+
+        SoundManager.Instance.PlaySoundEffect("PlayerWinsRound");
     }
 
     public void RoundLost()

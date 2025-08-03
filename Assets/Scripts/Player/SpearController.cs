@@ -62,11 +62,16 @@ public class SpearController : MonoBehaviour
         Vector3 direction = other.transform.position - transform.position;
         direction.y = 0;
 
+        bool isMainCharacter = parentObj.GetComponent<PlayerController>().IsMainCharacter();
+
         if (other.CompareTag("Gladiator"))
         {
             if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
             {
                 deathScript.TriggerDisable(false, -direction);
+
+                if (isMainCharacter)
+                    SoundManager.Instance.PlaySoundEffect("PlayerScoresTakedown");
             }
         }
 
@@ -75,6 +80,9 @@ public class SpearController : MonoBehaviour
             if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
             {
                 deathScript.TriggerDeath(-direction);
+
+                if (isMainCharacter)
+                    SoundManager.Instance.PlaySoundEffect("PlayerScoresTakedown");
             }
         }
 

@@ -24,12 +24,16 @@ public class GladiatorDeath : MonoBehaviour
 
             GameManager.Instance.RemoveGladiator(this.gameObject);
             this.gameObject.SetActive(false);
+
+            SoundManager.Instance.PlaySoundEffect("OtherGladiatorDeath");
         }
 
         if (isPlayer)
         {
             this.gameObject.SetActive(false);
             GameManager.Instance.RoundLost();
+
+            SoundManager.Instance.PlaySoundEffect("PlayerDeath");
         }
     }
 
@@ -38,6 +42,9 @@ public class GladiatorDeath : MonoBehaviour
         Instantiate(deathPrefab, transform.position, Quaternion.LookRotation(direction));
 
         GameManager.Instance.RemoveGladiator(this.gameObject);
+
+        SoundManager.Instance.PlaySoundEffect("OtherGladiatorDeath");
+
         Destroy(gameObject);
     }
 }
