@@ -498,9 +498,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '69,420
-
-'
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e2c6538b32adf024c871b9b44d549505, type: 2}
   m_sharedMaterial: {fileID: -2991281150807326885, guid: e2c6538b32adf024c871b9b44d549505, type: 2}
@@ -711,7 +709,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 3
-  m_Spacing: 0
+  m_Spacing: 25
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -1338,7 +1336,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 32
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1679,6 +1677,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7299873577566282139, guid: f42c9230e711aa74e923883ea954a941, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7299873577566282139, guid: f42c9230e711aa74e923883ea954a941, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e63c61de9e48fe4aa84a85188f0b6c0, type: 2}
     - target: {fileID: 7308552314843079480, guid: f42c9230e711aa74e923883ea954a941, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -1727,6 +1733,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8872101818046416397, guid: f42c9230e711aa74e923883ea954a941, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872101818046416397, guid: f42c9230e711aa74e923883ea954a941, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9e63c61de9e48fe4aa84a85188f0b6c0, type: 2}
     - target: {fileID: 9030626293154575749, guid: f42c9230e711aa74e923883ea954a941, type: 3}
       propertyPath: m_Name
       value: Gladiator

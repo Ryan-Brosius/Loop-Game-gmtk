@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -138,9 +139,9 @@ public class GameManager : MonoBehaviour
 
     public void GloryPenalty()
     {
-        if (currentGlory >= maxGlory / 2)
+        if (currentGlory >= maxGlory / 3)
         {
-            currentGlory -= 2;
+            currentGlory -= 1;
             if (gloryBar) gloryBar.SetGlory(currentGlory);
         }
     }
@@ -157,7 +158,11 @@ public class GameManager : MonoBehaviour
     {
         fameAmount += baseAmount + (int)currentGlory;
 
-        if (fameText) fameText.text = fameAmount.ToString();
+        if (fameText)
+        {
+            fameText.text = fameAmount.ToString();
+            fameText.rectTransform.DOPunchAnchorPos(Vector2.up * 25, 0.25f, 20, 1);
+        }
     }
 
     private void DecayGlory()
