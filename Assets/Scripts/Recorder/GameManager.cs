@@ -246,7 +246,7 @@ public class GameManager : MonoBehaviour
 
             string nextGate = InputRecorderManager.Instance.GetSpawnCardinal();
 
-            spawnText.text = "Player will enter from " + nextGate; 
+            spawnText.text = "Now You will enter from " + nextGate; 
         }
     }
 
