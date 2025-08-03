@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> gladiatorsList;
     private int currentLoop;
     public string playerName;
-    private int losses = 5;
+    public int losses = 0;
 
     [Header("Fame & Glory")]
     [SerializeField] bool decayActive = false;
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject gloryLoss;
     [SerializeField] GameObject deathLoss;
     [SerializeField] GameObject leaderboard;
+    [SerializeField] List<GameObject> livesIcons;
 
     private void Awake()
     {
@@ -141,6 +142,7 @@ public class GameManager : MonoBehaviour
     public void RoundLost(string numeral)
     {
         losses++;
+        DisableLifeIcon();
 
         decayActive = false;
         SoundManager.Instance.PlaySoundEffect("PlayerDeath");
@@ -165,6 +167,7 @@ public class GameManager : MonoBehaviour
     IEnumerator RoundLostRoutine()
     {
         losses++;
+        DisableLifeIcon();
 
         decayActive = false;
         SoundManager.Instance.PlaySoundEffect("PlayerDeath");
@@ -186,6 +189,12 @@ public class GameManager : MonoBehaviour
         {
             ShowLeaderboardCanvas();
         }
+    }
+
+    private void DisableLifeIcon()
+    {
+        livesIcons[0].SetActive(false);
+        livesIcons.RemoveAt(0);
     }
 
     public void ClearArena()
