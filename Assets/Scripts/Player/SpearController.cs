@@ -54,18 +54,27 @@ public class SpearController : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (canPickup)
-        {
-            return;
-        }
-        if (other.gameObject == parentObj)
+        if (canPickup || other.gameObject == parentObj)
         {
             return;
         }
 
-        if (other.CompareTag("Gladiator") && other.gameObject != parentObj && !canPickup)
+        if (other.CompareTag("Gladiator"))
+        {
+            GameManager.Instance.RemoveGladiator(other.gameObject);
+            other.gameObject.SetActive(false);
+        }
+
+        if (other.CompareTag("First Objective"))
+        {
+            GameManager.Instance.RemoveGladiator(other.gameObject);
+            Destroy(other.gameObject);
+        }
+
+        if (other.CompareTag("Player"))
         {
             other.gameObject.SetActive(false);
+            GameManager.Instance.RoundLost();
         }
 
         if (spearMesh != null) spearMesh.localRotation = Quaternion.Euler(130, 0, 0);

@@ -132,6 +132,8 @@ public class PlayerController : MonoBehaviour
 
     public InputRecord KillMyselfStopRecording()
     {
+        moveInput = Vector2.zero;
+        HandleRecording();
         isRecording = false;
         return recorder;
     }

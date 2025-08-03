@@ -81,6 +81,8 @@ public class InputRecorderManager : MonoBehaviour
                 }
             }
         }
+
+        GameManager.Instance.LevelReset();
     }
 
     public void ReverseAllRecordings()
@@ -105,11 +107,14 @@ public class InputRecorderManager : MonoBehaviour
 
     public void KillCurrentPlayer()
     {
+        currentPlayer.tag = "Gladiator";
         PlayerController controller = currentPlayer.GetComponent<PlayerController>();
+
+        Destroy(controller.gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>());
         var inputRecord = controller.KillMyselfStopRecording();
         var actor = controller.gameObject.AddComponent<ActorObject>();
         actor.SetRecord(inputRecord);
-        Destroy(controller.gameObject.GetComponent<UnityEngine.InputSystem.PlayerInput>());
+        
 
         AddRecording(inputRecord, actor);
         controller.gameObject.SetActive(false);
@@ -118,6 +123,7 @@ public class InputRecorderManager : MonoBehaviour
     public void SpawnNewPlayer()
     {
         GameObject player = Instantiate(playerPrefab, GetSpawnPoint(), Quaternion.identity);
+        player.tag = "Player";
         currentPlayer = player;
         PlayAllActors();
     }
