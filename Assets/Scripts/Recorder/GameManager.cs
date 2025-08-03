@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [SerializeField] List<GameObject> gladiatorsList;
     private int currentLoop;
+    public string playerName;
 
     [Header("Fame & Glory")]
     [SerializeField] bool decayActive = false;
@@ -22,6 +23,8 @@ public class GameManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] TextMeshProUGUI fameText;
     [SerializeField] GloryBar gloryBar;
+    [SerializeField] GameObject startScreen;
+    [SerializeField] TMP_InputField nameInput;
     [SerializeField] GameObject victoryPanel;
     [SerializeField] GameObject lossPanel;
     [SerializeField] TextMeshProUGUI loopText;
@@ -54,6 +57,19 @@ public class GameManager : MonoBehaviour
         if (gloryBar) gloryBar.SetMaxGlory(maxGlory);
 
         SoundManager.Instance.PlayMusic("MainTheme");
+
+        Time.timeScale = 0;
+        startScreen.SetActive(true);
+    }
+
+    public void EnterArena()
+    {
+        if (!string.IsNullOrEmpty(nameInput.text))
+        {
+            startScreen.SetActive(false);
+            Time.timeScale = 1;
+            playerName = nameInput.text;
+        }
     }
 
     private void Update()
@@ -66,6 +82,13 @@ public class GameManager : MonoBehaviour
             {
                 InputRecorderManager.Instance.SpawnNewPlayer();
                 HidePanels();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (startScreen.activeSelf)
+            {
+                EnterArena();
             }
         }
     }
