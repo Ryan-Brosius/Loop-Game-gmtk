@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8113953545975656800}
   - component: {fileID: 1135500768202924519}
   - component: {fileID: 8654686759013010555}
+  - component: {fileID: 8139085714685418334}
   - component: {fileID: 2214469081120784419}
   - component: {fileID: 6021835811454686223}
   m_Layer: 6
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de45e18f4c45ca14a8c4853aaab8a8f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 4
   rotationSpeed: 20
   ShootPoint: {fileID: 2109979235481274552}
   ProjectilePrefab: {fileID: 1117910940530895394, guid: 6592d27d9d9c91f4b8e3c6a3efc95353, type: 3}
@@ -158,6 +159,19 @@ MonoBehaviour:
   redMat: {fileID: 2100000, guid: 0c5681909f9b0c54ca31ff76e5452015, type: 2}
   blueMat: {fileID: 2100000, guid: 6bbcc38a463833846bc86e9acd419127, type: 2}
   identifierText: {fileID: 6485407225571570168}
+--- !u!114 &8139085714685418334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025175553230378191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20cdbb5777e51b74e8e8f65666d89399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathPrefab: {fileID: 2426996536305165447, guid: 206595f8271112f4d8101cdfa24c3e17, type: 3}
 --- !u!114 &2214469081120784419
 MonoBehaviour:
   m_ObjectHideFlags: 0

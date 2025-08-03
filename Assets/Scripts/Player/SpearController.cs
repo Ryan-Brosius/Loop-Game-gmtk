@@ -59,22 +59,31 @@ public class SpearController : MonoBehaviour
             return;
         }
 
+        Vector3 direction = other.transform.position - transform.position;
+        direction.y = 0;
+
         if (other.CompareTag("Gladiator"))
         {
-            GameManager.Instance.RemoveGladiator(other.gameObject);
-            other.gameObject.SetActive(false);
+            if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
+            {
+                deathScript.TriggerDisable(false, -direction);
+            }
         }
 
         if (other.CompareTag("First Objective"))
         {
-            GameManager.Instance.RemoveGladiator(other.gameObject);
-            Destroy(other.gameObject);
+            if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
+            {
+                deathScript.TriggerDeath(-direction);
+            }
         }
 
         if (other.CompareTag("Player"))
         {
-            other.gameObject.SetActive(false);
-            GameManager.Instance.RoundLost();
+            if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
+            {
+                deathScript.TriggerDisable(true, -direction);
+            }
         }
 
         if (spearMesh != null) spearMesh.localRotation = Quaternion.Euler(130, 0, 0);

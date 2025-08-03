@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Gladiator
   - First Objective
+  - Corpse
+  - Spear
   layers:
   - Default
   - TransparentFX
