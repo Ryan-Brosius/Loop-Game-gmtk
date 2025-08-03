@@ -16,7 +16,7 @@ public class GladiatorDeath : MonoBehaviour
         
     }
 
-    public void TriggerDisable(bool isPlayer, Vector3 direction)
+    public void TriggerDisable(bool isPlayer, Vector3 direction, string numeral)
     {
         if (!isPlayer)
         {
@@ -31,7 +31,7 @@ public class GladiatorDeath : MonoBehaviour
         if (isPlayer)
         {
             this.gameObject.SetActive(false);
-            GameManager.Instance.RoundLost();
+            GameManager.Instance.RoundLost(numeral);
 
             SoundManager.Instance.PlaySoundEffect("PlayerDeath");
         }

@@ -12,6 +12,7 @@ public class PlayerIdentifier : MonoBehaviour
 
     [Header("Head Text")]
     [SerializeField] TextMeshProUGUI identifierText;
+    [SerializeField] private string numeral;
 
 
     private void Awake()
@@ -37,7 +38,8 @@ public class PlayerIdentifier : MonoBehaviour
     {
         if (identifierText != null)
         {
-            identifierText.text = IntToRoman(actorNumber);
+            numeral = IntToRoman(actorNumber);
+            identifierText.text = numeral;
         }
     }
 
@@ -69,5 +71,10 @@ public class PlayerIdentifier : MonoBehaviour
             }
         }
         return result;
+    }
+
+    public string GetNumeral()
+    {
+        return numeral;
     }
 }

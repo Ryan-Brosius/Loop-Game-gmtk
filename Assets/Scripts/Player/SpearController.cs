@@ -67,7 +67,7 @@ public class SpearController : MonoBehaviour
         {
             if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
             {
-                deathScript.TriggerDisable(false, -direction);
+                deathScript.TriggerDisable(false, -direction, "none");
 
                 if (isMainCharacter)
                 {
@@ -99,7 +99,7 @@ public class SpearController : MonoBehaviour
         {
             if (other.TryGetComponent<GladiatorDeath>(out GladiatorDeath deathScript))
             {
-                deathScript.TriggerDisable(true, -direction);
+                deathScript.TriggerDisable(true, -direction, parentObj.GetComponent<PlayerIdentifier>().GetNumeral());
             }
         }
 

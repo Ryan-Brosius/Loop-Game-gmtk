@@ -3,11 +3,14 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] List<GameObject> gladiatorsList;
+    private int currentLoop;
 
     [Header("Fame & Glory")]
     [SerializeField] bool decayActive = false;
@@ -19,6 +22,13 @@ public class GameManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] TextMeshProUGUI fameText;
     [SerializeField] GloryBar gloryBar;
+    [SerializeField] GameObject victoryPanel;
+    [SerializeField] GameObject lossPanel;
+    [SerializeField] TextMeshProUGUI loopText;
+    [SerializeField] TextMeshProUGUI spawnText;
+    [SerializeField] TextMeshProUGUI killerTitle;
+    [SerializeField] GameObject gloryLoss;
+    [SerializeField] GameObject deathLoss;
 
     private void Awake()
     {
@@ -49,6 +59,15 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (decayActive) DecayGlory();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (lossPanel.activeSelf || victoryPanel.activeSelf)
+            {
+                InputRecorderManager.Instance.SpawnNewPlayer();
+                HidePanels();
+            }
+        }
     }
 
     public void LevelReset()
@@ -81,11 +100,12 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RoundWonRoutine()
     {
+        decayActive = false;
+        SoundManager.Instance.PlaySoundEffect("PlayerWinsRound");
+        currentLoop++;
         InputRecorderManager.Instance.KillCurrentPlayer();
         yield return new WaitForSeconds(1f);
-        InputRecorderManager.Instance.SpawnNewPlayer();
-
-        SoundManager.Instance.PlaySoundEffect("PlayerWinsRound");
+        ShowVictoryPanel();
     }
 
     public void RoundLost()
@@ -93,8 +113,23 @@ public class GameManager : MonoBehaviour
         StartCoroutine(RoundLostRoutine());
     }
 
+    public void RoundLost(string numeral)
+    {
+        decayActive = false;
+        SoundManager.Instance.PlaySoundEffect("PlayerDeath");
+        if (gladiatorsList.Count > 0)
+        {
+            foreach (GameObject actor in gladiatorsList)
+            {
+                actor.SetActive(false);
+            }
+        }
+        ShowLossPanel(numeral);
+    }
+
     IEnumerator RoundLostRoutine()
     {
+        decayActive = false;
         SoundManager.Instance.PlaySoundEffect("PlayerDeath");
         if (gladiatorsList.Count > 0)
         {
@@ -105,7 +140,7 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-        InputRecorderManager.Instance.SpawnNewPlayer();
+        ShowLossPanel();
     }
 
     public void ClearArena()
@@ -177,5 +212,45 @@ public class GameManager : MonoBehaviour
             decayActive = false;
             RoundLost();
         }
+    }
+
+    public void ShowVictoryPanel()
+    {
+        if (victoryPanel)
+        {
+            loopText.text = "Loop " + currentLoop.ToString();
+            victoryPanel.SetActive(true);
+
+            string nextGate = InputRecorderManager.Instance.GetSpawnCardinal();
+
+            spawnText.text = "Player will enter from " + nextGate; 
+        }
+    }
+
+    public void ShowLossPanel()
+    {
+        if (lossPanel)
+        {
+            gloryLoss.SetActive(true);
+            deathLoss.SetActive(false);
+            lossPanel.SetActive(true);
+        }
+    }
+
+    public void ShowLossPanel(string numeral)
+    {
+        if (lossPanel)
+        {
+            gloryLoss.SetActive(false);
+            killerTitle.text = "Gladiator " + numeral;
+            deathLoss.SetActive(true);
+            lossPanel.SetActive(true);
+        }
+    }
+
+    public void HidePanels()
+    {
+        victoryPanel.SetActive(false);
+        lossPanel.SetActive(false);
     }
 }

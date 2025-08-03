@@ -12,6 +12,7 @@ public class InputRecorderManager : MonoBehaviour
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] Transform[] spawnPoints;
     private int lastSpawnIndex;
+    public int nextSpawnIndex;
 
     [Header("Enable debug settings here")]
     [SerializeField] private bool DEBUG_MODE = false;
@@ -34,7 +35,7 @@ public class InputRecorderManager : MonoBehaviour
         if (!DEBUG_MODE)
             return;
 
-
+        /*
         // KILL PLAYER
         // SAVE THEIR RECORDING LOL!!
         if (Input.GetKeyDown(KeyCode.K))
@@ -50,6 +51,7 @@ public class InputRecorderManager : MonoBehaviour
         {
             SpawnNewPlayer();
         }
+        */
     }
 
     public void AddRecording(InputRecord recording, ActorObject actor)
@@ -138,14 +140,20 @@ public class InputRecorderManager : MonoBehaviour
         }
         else
         {
-            int index;
-            do
-            {
-                index = Random.Range(0, spawnPoints.Length);
-            } while (index == lastSpawnIndex);
-
-            lastSpawnIndex = index;
-            return spawnPoints[index].position;
+            lastSpawnIndex = nextSpawnIndex;
+            return spawnPoints[nextSpawnIndex].position;
         }
+    }
+
+    public string GetSpawnCardinal()
+    {
+        int index;
+        do
+        {
+            index = Random.Range(0, spawnPoints.Length);
+        } while (index == lastSpawnIndex);
+
+        nextSpawnIndex = index;
+        return spawnPoints[nextSpawnIndex].name;
     }
 }
