@@ -1,0 +1,107 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5217346301804159786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1403665816034849801}
+  - component: {fileID: 1831008398228867355}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1403665816034849801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5217346301804159786}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.61190325, y: 17.474703, z: 12.570681}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1831008398228867355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5217346301804159786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ed6255183deb3f44b32e491c6c1385b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeMultiplier: 1
+  soundEffects:
+  - SoundName: MainTheme
+    Clips:
+    - {fileID: 8300000, guid: 3755293ca4261411488c695533eee79a, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: ButtonHover
+    Clips:
+    - {fileID: 8300000, guid: 2ee74fef52d4c22fd8b69165d9b59b45, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: ButtonPressed
+    Clips:
+    - {fileID: 8300000, guid: 68c37e90afd1239929c4ee4016a951a9, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: GladiatorExecuted
+    Clips:
+    - {fileID: 8300000, guid: 9a6862aaad382f3aaa3cc05d8fd8cf3e, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: OtherGladiatorDeath
+    Clips:
+    - {fileID: 8300000, guid: 0ec417d77ccfaaa4ba77809ff36bc9ef, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: OtherSpearThrow
+    Clips:
+    - {fileID: 8300000, guid: 043fd790c6a7c241da2e32ea8d49515b, type: 3}
+    - {fileID: 8300000, guid: 9c694135dd97c9429a7cd15968237bc8, type: 3}
+    - {fileID: 8300000, guid: 70f52eb7733977cbf9b2c27cef21a32f, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: PlayerDeath
+    Clips:
+    - {fileID: 8300000, guid: 397574fb98d6c69c1ae76d2174ae25f3, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: PlayerScoresTakedown
+    Clips:
+    - {fileID: 8300000, guid: 9d1794b9ca7a7ab9497117d362f5eff1, type: 3}
+    - {fileID: 8300000, guid: 9b229efcf2665d966b11dacdae267413, type: 3}
+    - {fileID: 8300000, guid: 1927d37b74e9b1573b51b81ca9f61dbc, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: PlayerSpearThrow
+    Clips:
+    - {fileID: 8300000, guid: b8524279e88746e3cb2ddd7a264d037e, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: PlayerWinsRound
+    Clips:
+    - {fileID: 8300000, guid: 1f9dc2ab81be6801f9ab201baae7aa91, type: 3}
+    Volume: 1
+    Vary: 0
+  - SoundName: ScrollbarScrolling
+    Clips:
+    - {fileID: 8300000, guid: 27dbe8155cf133c4d8c62350dcb30c46, type: 3}
+    Volume: 1
+    Vary: 0

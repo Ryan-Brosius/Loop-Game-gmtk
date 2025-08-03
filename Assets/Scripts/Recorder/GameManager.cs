@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
             gladiatorsList.Add(GameObject.FindGameObjectWithTag("First Objective"));
         }
 
-        SoundManager.Instance.PlaySoundEffect("MainTheme");
+        SoundManager.Instance.PlayMusic("MainTheme");
     }
 
     public void LevelReset()
