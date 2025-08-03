@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private bool immunity;
+    [SerializeField] private float immunityDuration = 0.5f;
     
 
     private CharacterController controller;
@@ -40,6 +43,20 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         recorder = new InputRecord(this.transform.position);
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(TriggerImmunity());
+    }
+
+    IEnumerator TriggerImmunity()
+    {
+        CapsuleCollider collider = this.GetComponent<CapsuleCollider>();
+
+        collider.enabled = false;
+        yield return new WaitForSeconds(immunityDuration);
+        collider.enabled = true;
     }
 
     public bool IsMainCharacter() => GetComponent<UnityEngine.InputSystem.PlayerInput>() != null;

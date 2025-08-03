@@ -122,6 +122,8 @@ public class InputRecorderManager : MonoBehaviour
 
     public void SpawnNewPlayer()
     {
+        if (currentPlayer.activeSelf) currentPlayer.SetActive(false);
+
         GameObject player = Instantiate(playerPrefab, GetSpawnPoint(), Quaternion.identity);
         player.tag = "Player";
         currentPlayer = player;

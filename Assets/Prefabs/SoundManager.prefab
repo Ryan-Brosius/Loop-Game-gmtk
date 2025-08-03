@@ -69,15 +69,15 @@ MonoBehaviour:
   - SoundName: OtherGladiatorDeath
     Clips:
     - {fileID: 8300000, guid: 0ec417d77ccfaaa4ba77809ff36bc9ef, type: 3}
-    Volume: 1
+    Volume: 0.6
     Vary: 0
   - SoundName: OtherSpearThrow
     Clips:
     - {fileID: 8300000, guid: 043fd790c6a7c241da2e32ea8d49515b, type: 3}
     - {fileID: 8300000, guid: 9c694135dd97c9429a7cd15968237bc8, type: 3}
     - {fileID: 8300000, guid: 70f52eb7733977cbf9b2c27cef21a32f, type: 3}
-    Volume: 1
-    Vary: 0
+    Volume: 0.2
+    Vary: 1
   - SoundName: PlayerDeath
     Clips:
     - {fileID: 8300000, guid: 397574fb98d6c69c1ae76d2174ae25f3, type: 3}
@@ -89,11 +89,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 9b229efcf2665d966b11dacdae267413, type: 3}
     - {fileID: 8300000, guid: 1927d37b74e9b1573b51b81ca9f61dbc, type: 3}
     Volume: 1
-    Vary: 0
+    Vary: 1
   - SoundName: PlayerSpearThrow
     Clips:
     - {fileID: 8300000, guid: b8524279e88746e3cb2ddd7a264d037e, type: 3}
-    Volume: 1
+    Volume: 0.3
     Vary: 0
   - SoundName: PlayerWinsRound
     Clips:

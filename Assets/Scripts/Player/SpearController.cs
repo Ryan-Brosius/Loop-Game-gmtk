@@ -71,7 +71,14 @@ public class SpearController : MonoBehaviour
                 deathScript.TriggerDisable(false, -direction);
 
                 if (isMainCharacter)
+                {
                     SoundManager.Instance.PlaySoundEffect("PlayerScoresTakedown");
+                    GameManager.Instance.TakedownScore(false);
+                }
+                else
+                {
+                    GameManager.Instance.GloryPenalty();
+                }
             }
         }
 
@@ -82,7 +89,10 @@ public class SpearController : MonoBehaviour
                 deathScript.TriggerDeath(-direction);
 
                 if (isMainCharacter)
+                {
                     SoundManager.Instance.PlaySoundEffect("PlayerScoresTakedown");
+                    GameManager.Instance.TakedownScore(false);
+                }
             }
         }
 
