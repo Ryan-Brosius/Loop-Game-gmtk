@@ -160,7 +160,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ShowLeaderboardCanvas();
+            // Removing for endless
+            // ShowLeaderboardCanvas();
         }
     }
 
@@ -187,7 +188,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            ShowLeaderboardCanvas();
+            // Removing for endless
+            // ShowLeaderboardCanvas();
         }
     }
 
